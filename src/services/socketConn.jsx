@@ -2,9 +2,10 @@ import { io } from "socket.io-client";
 import { useStore } from "./store";
 
 let socket;
+const ip = '18.119.102.15';
 
 export const connectWithSocketServer = () => {
-  socket = io('https://node-js-kinal-cast-2024.vercel.app/', {
+  socket = io(`http://${ip}:3001`, {
     transports: ['websocket', 'polling'], // Permite tanto WebSocket como polling
   });
 
@@ -13,22 +14,24 @@ export const connectWithSocketServer = () => {
   });
 
   socket.on('chat-history', (chatHistory) => {
-    const { setChatHistory } = useStore().getState();
-    setChatHistory(chatHistory);
+    useStore.setState({ chatHistory }); // Actualizamos el estado directamente
   });
 
   socket.on('chat-message', (chatMessage) => {
-    const { chatHistory, setChatHistory } = useStore().getState();
-    setChatHistory({
-      channelId: chatHistory.channelId,
-      messages: [
-        ...chatHistory.messages,
-        {
-          author: chatMessage.author,
-          content: chatMessage.content,
-          date: chatMessage.date
+    useStore.setState((state) => {
+      return {
+        chatHistory: {
+          ...state.chatHistory,
+          messages: [
+            ...state.chatHistory.messages,
+            {
+              author: chatMessage.author,
+              content: chatMessage.content,
+              date: chatMessage.date
+            }
+          ]
         }
-      ]
+      };
     });
   });
 
@@ -55,6 +58,7 @@ export const sendChatMessage = (toChannel, message) => {
 export const closeChatSubscription = (channelId) => {
   socket.emit("chat-unsubscribe", channelId);
 };
+
 
 
 
