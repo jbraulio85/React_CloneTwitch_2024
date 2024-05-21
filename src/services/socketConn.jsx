@@ -2,13 +2,14 @@ import { io } from "socket.io-client";
 import { useStore } from "./store";
 
 let socket;
-const ip = "192.168.42.125"
 
 export const connectWithSocketServer = () => {
-  socket = io(`http://${ip}:3001`);
+  socket = io('https://node-js-kinal-cast-2024.vercel.app/', {
+    transports: ['websocket'], // Fuerza el uso de websockets
+  });
 
   socket.on("connect", () => {
-
+    console.log("connected to socket server");
   });
 
   socket.on('chat-history', (chatHistory) => {

@@ -12,7 +12,7 @@ import {
 import { useLogin } from "../shared/hooks";
 
 export const Login = ({ switchAuthHandler }) => {
-  const {login, isLoading} = useLogin()
+  const { login, isLoading } = useLogin();
 
   const [formState, setFormState] = useState({
     email: {
@@ -32,7 +32,7 @@ export const Login = ({ switchAuthHandler }) => {
       ...prevState,
       [field]: {
         ...prevState[field],
-        value
+        value,
       },
     }));
   };
@@ -59,16 +59,14 @@ export const Login = ({ switchAuthHandler }) => {
     }));
   };
 
-  const handleLogin = (event) =>{
-    event.preventDefault()
+  const handleLogin = (event) => {
+    event.preventDefault();
 
-    login(formState.email.value, formState.password.value)
-  }
+    login(formState.email.value, formState.password.value);
+  };
 
-  const isSubmitButtonDisabled = 
-  isLoading ||
-  !formState.password.isValid || 
-  !formState.email.isValid
+  const isSubmitButtonDisabled =
+    isLoading || !formState.password.isValid || !formState.email.isValid;
 
   return (
     <div className="login-container">
@@ -94,10 +92,7 @@ export const Login = ({ switchAuthHandler }) => {
           showErrorMessage={formState.password.showError}
           validationMessage={passwordValidationMessage}
         />
-        <button
-          onClick={handleLogin}
-          disabled={isSubmitButtonDisabled}
-        >
+        <button onClick={handleLogin} disabled={isSubmitButtonDisabled}>
           Log in
         </button>
       </form>
