@@ -2,7 +2,7 @@ import { io } from "socket.io-client";
 import { useStore } from "./store";
 
 let socket;
-const ip = '18.119.102.15';
+const ip = '172.16.16.146';
 
 export const connectWithSocketServer = () => {
   socket = io(`http://${ip}:3001`, {
