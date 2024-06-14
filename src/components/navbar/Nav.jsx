@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/img/EscudoPeque.svg";
 import { useUserDetails } from "../../shared/hooks";
 
 const NavLogo = () => {
@@ -10,7 +9,7 @@ const NavLogo = () => {
         className="nav-logo"
         width="100%"
         height="100%"
-        src={logo}
+        src="https://i.ibb.co/9h0ZZfj/Escudo-Transparente.png"
         alt="Logo.svg"
       />
     </div>
